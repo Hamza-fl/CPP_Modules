@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/27 16:35:20 by hfalati           #+#    #+#             */
+/*   Updated: 2025/09/27 16:35:21 by hfalati          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Harl.hpp"
 
 Harl::Harl () {}
@@ -11,7 +23,6 @@ void Harl::info () {
     std::cout << "I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!\n";
 }
 
-
 void Harl::warning(void) {
     std::cout << "I think I deserve to have some extra bacon for free. I've been coming for years, whereas you started working here just last month.\n";
 }
@@ -20,9 +31,8 @@ void Harl::error(void) {
     std::cout << "This is unacceptable! I want to speak to the manager now.\n";
 }
 
-// pointer to function --> void(*<name>)(); --> typedef void (*<name>)(); and use the <name> to call it
-
 void Harl::complain(std::string level) {
+
     std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
     typedef void (Harl::*ptr_fn) (void);

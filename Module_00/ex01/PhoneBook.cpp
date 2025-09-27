@@ -1,8 +1,16 @@
-#include "PhoneBook.hpp"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 11:45:19 by hfalati           #+#    #+#             */
+/*   Updated: 2025/09/23 11:45:20 by hfalati          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook(): count(0), nextindex(0) {}
 PhoneBook::~PhoneBook() {}
@@ -43,7 +51,9 @@ void PhoneBook::showcontacts() const {
     std::cout << "     Index|First Name| Last Name|  Nickname\n";
     
     for (int i = 0; i < count; i++) {
-        std::string indexStr = std::to_string(i);
+        std::stringstream ss;
+        ss << i;
+        std::string indexStr = ss.str();
         std::cout << formatField(indexStr) << "|"
                   << formatField(contacts[i].getfirstname()) << "|"
                   << formatField(contacts[i].getlastname()) << "|"

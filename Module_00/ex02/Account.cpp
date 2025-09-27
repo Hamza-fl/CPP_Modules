@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Account.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 11:44:50 by hfalati           #+#    #+#             */
+/*   Updated: 2025/09/23 15:25:29 by hfalati          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "Account.hpp"
 #include <iostream>
-#include <iomanip>
 #include <ctime>
 
 int Account::_nbAccounts = 0;
@@ -86,17 +96,11 @@ bool Account::makeWithdrawal(int withdrawal){
     return true;
 }
 
-void Account::_displayTimestamp(void) {
-    std::time_t now = std::time(0);
-    std::tm* timeinfo = std::localtime(&now);
-    
-    std::cout << "[" 
-              << (timeinfo->tm_year + 1900)
-              << std::setfill('0') << std::setw(2) << (timeinfo->tm_mon + 1)
-              << std::setfill('0') << std::setw(2) << timeinfo->tm_mday
-              << "_"
-              << std::setfill('0') << std::setw(2) << timeinfo->tm_hour
-              << std::setfill('0') << std::setw(2) << timeinfo->tm_min
-              << std::setfill('0') << std::setw(2) << timeinfo->tm_sec
-              << "] ";
+void Account::_displayTimestamp( void )
+{
+    time_t now = std::time(NULL);
+    std::tm* tm_ptr = std::localtime(&now);
+    char buf[100];
+    std::strftime(buf, sizeof(buf), "[%Y%m%d_%H%M%S] ", tm_ptr);
+    std::cout << buf;
 }

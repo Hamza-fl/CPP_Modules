@@ -1,22 +1,20 @@
-SRCS = *.cpp
-OBJS = *.o
-INCS = .
-NAME = a.out
-CC = c++ -Wall -Werror -Wextra
+NAME = phonebook
+SRCS = main.cpp Contact.cpp PhoneBook.cpp
+HEADERS = Contact.hpp PhoneBook.hpp
+OBJS = $(SRCS:.cpp=.o)
 
-all : ${NAME}
+$(NAME): $(OBJS)
+	c++ -Wall -Wextra -Werror $(OBJS) -o $(NAME)
 
-${NAME} :
-	${CC} -c -I${INCS} ${SRCS}
-	${CC} ${OBJS} -o ${NAME}
+%.o: %.cpp $(HEADERS)
+	c++ -Wall -Wextra -Werror -c $< -o $@
 
-clean :
-	rm -rf ${OBJS}
+clean:
+	rm -f $(OBJS)
 
-fclean :
-	rm -rf ${OBJS}
-	rm -rf ${NAME}
+fclean: clean
+	rm -f $(NAME)
 
-re : fclean all
+re: fclean $(NAME)
 
-.PHONY : clean fclean re bonus
+.PHONY: clean fclean re

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 11:45:05 by hfalati           #+#    #+#             */
+/*   Updated: 2025/09/23 11:45:06 by hfalati          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Contact.hpp"
 #include <iostream>
 
@@ -19,15 +31,29 @@ bool Contact::isEmpty() const {
         || phoneNumber.empty() || darkestSecret.empty();
 }
 
+bool isprintable(std::string& str){
+    for (size_t i = 0; i < str.length(); i++){
+        if (!std::isprint(str[i]))
+            return false;
+    }
+    return true;
+}
+
 bool checkEmpty(const char* prompt, std::string& out){
     while (true)
     {
         std::cout << prompt;
         if (!std::getline(std::cin, out))
             return false;
-        if (!out.empty())
-            return true;
-        std::cout << "Cannot be empty\n";
+        if (out.empty()){
+            std::cout << "Cannot be empty\n";
+            continue;
+        }
+        if (!isprintable(out)){
+            std::cout << "Only printable characters\n";
+            continue;
+        }
+        return true;
     }
 }
 

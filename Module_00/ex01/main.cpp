@@ -1,7 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/23 11:45:16 by hfalati           #+#    #+#             */
+/*   Updated: 2025/09/23 15:03:45 by hfalati          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PhoneBook.hpp"
-#include <iostream>
-#include <string>
-#include <sstream>
 
 bool isNumber(const std::string& str) {
     if (str.empty()) return false;
@@ -29,6 +38,7 @@ int main(){
                 std::cout << "Contact added\n";
             }else {
                 std::cout << "\nsomething faill\n";
+                continue;
             }
         }
         else if (cmd == "SEARCH"){
@@ -36,10 +46,10 @@ int main(){
             if (phonebook.getCount() == 0) continue;
             std::cout << "Enter index to display: ";
             std::string idxStr;
-            if (!std::getline(std::cin, idxStr)) break;
+            if (!std::getline(std::cin, idxStr)) continue;
             if (!isNumber(idxStr)) {
                 std::cout << "Invalid input\n";
-                break;
+                continue;
             }
             int idx = std::atoi(idxStr.c_str());
             phonebook.displaycontact(idx);

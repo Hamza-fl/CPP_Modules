@@ -14,6 +14,11 @@
 
 int main() {
     Zombie* z1 = newZombie("HeapZombie");
+    if (!z1)
+    {
+        std::cerr << "failed to allocate memory\n";
+        return 1;
+    }
     z1->announce();
     delete z1;
 

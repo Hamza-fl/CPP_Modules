@@ -1,35 +1,38 @@
+#include "Intern.hpp"
 #include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+#include <iostream>
 
 int main() {
-    std::cout << "=== Test Shrubbery ===" << std::endl;
-    {
-        Bureaucrat bob("Bob", 137);
-        ShrubberyCreationForm shrub("home");
-        
-        bob.signForm(shrub);
-        bob.executeForm(shrub);
+    std::cout << "=== Testing Intern ===" << std::endl;
+    
+    Intern intern;
+    Bureaucrat boss("Boss", 1);
+    
+    // Test 1: Create robotomy request
+    std::cout << "\n--- Test 1: Robotomy Request ---" << std::endl;
+    AForm* form1 = intern.makeForm("robotomy request", "Bender");
+    if (form1) {
+        boss.signForm(*form1);
+        boss.executeForm(*form1);
+        delete form1;
     }
-
-    std::cout << "\n=== Test Robotomy ===" << std::endl;
-    {
-        Bureaucrat alice("Alice", 45);
-        RobotomyRequestForm robot("Bender");
-        
-        alice.signForm(robot);
-        alice.executeForm(robot);
+    
+    // Test 2: Create shrubbery creation
+    std::cout << "\n--- Test 2: Shrubbery Creation ---" << std::endl;
+    AForm* form2 = intern.makeForm("shrubbery creation", "home");
+    if (form2) {
+        boss.signForm(*form2);
+        boss.executeForm(*form2);
+        delete form2;
     }
-
-    std::cout << "\n=== Test Presidential ===" << std::endl;
-    {
-        Bureaucrat president("President", 1);
-        PresidentialPardonForm pardon("Arthur");
-        
-        president.signForm(pardon);
-        president.executeForm(pardon);
+    
+    // Test 3: Create presidential pardon
+    std::cout << "\n--- Test 3: Presidential Pardon ---" << std::endl;
+    AForm* form3 = intern.makeForm("presidential pardon", "Arthur");
+    if (form3) {
+        boss.signForm(*form3);
+        boss.executeForm(*form3);
+        delete form3;
     }
-
     return 0;
 }

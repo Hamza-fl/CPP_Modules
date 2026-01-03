@@ -23,6 +23,7 @@ AForm* createShrubbery(std::string target) {
 }
 
 AForm* createRobotomy(std::string target) {
+    throw std::bad_alloc();
     return new RobotomyRequestForm(target);
 }
 
@@ -32,16 +33,10 @@ AForm* createPardon(std::string target) {
 
 AForm* Intern::makeForm(std::string formName, std::string target) {
 
-    std::string formTypes[3] = {
-        "shrubbery creation",
-        "robotomy request",
-        "presidential pardon"
-    };
-    AForm* (*creators[3])(std::string) = {
-        &createShrubbery,
-        &createRobotomy,
-        &createPardon
-    };
+    std::string formTypes[3] = {"shrubbery creation","robotomy request","presidential pardon"};
+
+    AForm* (*creators[3])(std::string) = {&createShrubbery,&createRobotomy,&createPardon};
+
     for (int i = 0; i < 3; i++) {
         if (formTypes[i] == formName) {
             std::cout << "Intern creates " << formName << std::endl;

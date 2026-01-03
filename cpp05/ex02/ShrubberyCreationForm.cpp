@@ -30,24 +30,11 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
         return;
     }
 
-    file << "       ###\n";
-    file << "      #o###\n";
-    file << "    #####o###\n";
-    file << "   #o#\\#|#/###\n";
-    file << "    ###\\|/#o#\n";
-    file << "     # }|{  #\n";
-    file << "       }|{\n";
-    file << "\n";
-    file << "      ^^ ^^\n";
-    file << "     ^^   ^^\n";
-    file << "    ^^     ^^\n";
-    file << "   ^^  ***  ^^\n";
-    file << "  ^^  *****  ^^\n";
-    file << " ^^   *****   ^^\n";
-    file << "^^    *****    ^^\n";
-    file << "      || ||\n";
-    file << "      || ||\n";
-    file << "      || ||\n";
+    file << "    *\n";
+    file << "   ***\n";
+    file << "  *****\n";
+    file << " *******\n";
+    file << "    |\n";
 
     file.close();
 }

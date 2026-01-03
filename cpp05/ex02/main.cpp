@@ -4,7 +4,8 @@
 #include "PresidentialPardonForm.hpp"
 
 int main() {
-    std::cout << "=== Test Shrubbery ===" << std::endl;
+
+    try
     {
         Bureaucrat bob("Bob", 137);
         ShrubberyCreationForm shrub("home");
@@ -12,23 +13,28 @@ int main() {
         bob.signForm(shrub);
         bob.executeForm(shrub);
     }
-
-    std::cout << "\n=== Test Robotomy ===" << std::endl;
-    {
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << '\n';
+    }
+    try {
         Bureaucrat alice("Alice", 45);
         RobotomyRequestForm robot("Bender");
         
         alice.signForm(robot);
         alice.executeForm(robot);
     }
-
-    std::cout << "\n=== Test Presidential ===" << std::endl;
-    {
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << '\n';
+    }
+    try {
         Bureaucrat president("President", 1);
         PresidentialPardonForm pardon("Arthur");
         
         president.signForm(pardon);
         president.executeForm(pardon);
+    }
+    catch (std::exception& e) {
+        std::cout << "Exception caught: " << e.what() << '\n';
     }
 
     return 0;

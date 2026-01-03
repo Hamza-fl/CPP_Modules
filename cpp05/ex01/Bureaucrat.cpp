@@ -1,16 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hfalati <hfalati@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/18 10:25:27 by hfalati           #+#    #+#             */
-/*   Updated: 2025/12/30 16:59:48 by hfalati          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Bureaucrat.hpp"
+
+Bureaucrat::Bureaucrat() : name("Default"), grade(150) {}
 
 Bureaucrat::Bureaucrat(const std::string& n, int g) : name(n), grade(g) {
     if (g < 1)

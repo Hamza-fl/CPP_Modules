@@ -1,142 +1,94 @@
 #include "ScalarConverter.hpp"
 
-bool isPseudo(const std::string& s) {
-    return (s == "nan" || s == "nanf" || s == "+inf" || s == "-inf" || s == "+inff" || s == "-inff");
+ScalarConverter::ScalarConverter() {}
+
+ScalarConverter::ScalarConverter(const ScalarConverter& other) {
+    (void)other;
 }
 
-bool isInt(const std::string& s) {
-    char* end;
-    std::strtol(s.c_str(), &end, 10);
-    return (*end == '\0');
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other) {
+    (void)other; return *this;
 }
 
-bool isChar(const std::string& s) {
-    return (s.length() == 1 && !std::isdigit(s[0]));
+ScalarConverter::~ScalarConverter() {}
+
+bool isChar(const std::string& str) {
+    return (str.length() == 1 && !isdigit(str[0]));
 }
 
-bool isFloat(const std::string& s) {
-    if (s[s.length() - 1] != 'f')
+bool isInt(const std::string& str) {
+    size_t i = 0;
+
+	if (str[i] == '+' || str[i] == '-')
+        i++;
+	if (i >= str.length())
         return false;
-    char* end;
-    std::strtof(s.c_str(), &end);
-    return (end == s.c_str() + s.length() - 1);
+	
+	while (i < str.length()) {
+		if (!isdigit(str[i]))
+            return false;
+		i++;
+	}
+	return true;
 }
 
-bool isDouble(const std::string& s) {
-    char* end;
-    std::strtod(s.c_str(), &end);
-    return (*end == '\0');
-}
+bool isFloat(const std::string& str) {
+    if (str.length() < 2 || str[str.length() - 1] != 'f')
+        return false;
+    if (str == "nanf" || str == "+inff" || str == "-inff" || str == "inff")
+        return true;
+    std::string num = str.substr(0, str.length() - 1);
+    size_t i = 0;
+    if (num[i] == '+' || num[i] == '-')
+        i++;
 
-void ScalarConverter::convert (const std::string value) {
-
-    std::cout << std::fixed << std::setprecision(1);
-
-    if (isInt(value)) {
-        char* end;
-        errno = 0;
-        long l = std::strtol(value.c_str(), &end, 10);
-
-        if (errno == ERANGE || l < std::numeric_limits<int>::min() || l > std::numeric_limits<int>::max()) {
-
-            std::cout << "char: impossible" << std::endl;
-            std::cout << "int: impossible" << std::endl;
-            std::cout << "float: impossible" << std::endl;
-            std::cout << "double: impossible" << std::endl;
-            return;
+    bool hasDot = false;
+    bool hasDigit = false;
+    while (i < num.length()) {
+        if (num[i] == '.') {
+            if (hasDot)
+                return false;
+            hasDot = true;
         }
-
-        int i = static_cast<int>(l);
-
-        if (i >= 32 && i <= 126)
-            std::cout << "char: '" << static_cast<char>(i) << "'" << std::endl;
-        else
-            std::cout << "char: Non displayable" << std::endl;
-
-        std::cout << "int: " << i << std::endl;
-        std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(i) << std::endl;
-        return;
+        else if (isdigit(num[i])) {
+            hasDigit = true;
+        } else
+            return false;
+        i++;
     }
+    return hasDigit && hasDot;
+}
 
-    if (isChar(value)) {
-        char c = value[0];
+bool isDouble(const std::string& str) {
+    if (str == "nan" || str == "+inf" || str == "-inf" || str == "inf")
+        return true;
+    size_t i = 0;
+    if (str[i] == '+' || str[i] == '-')
+        i++;
 
-        std::cout << "char: '" << c << "'" << std::endl;
-        std::cout << "int: " << static_cast<int>(c) << std::endl;
-        std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(c) << std::endl;
-        return;
-    }
-
-    if (isFloat(value)) {
-        float f = std::strtof(value.c_str(), NULL);
-
-        if (std::isnan(f) || f < 0 || f > 127)
-            std::cout << "char: impossible" << std::endl;
-        else if (!std::isprint(static_cast<char>(f)))
-            std::cout << "char: Non displayable" << std::endl;
-        else
-            std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-
-        if (f < std::numeric_limits<int>::min() ||
-            f > std::numeric_limits<int>::max() ||
-            std::isnan(f) || std::isinf(f))
-            std::cout << "int: impossible" << std::endl;
-        else
-            std::cout << "int: " << static_cast<int>(f) << std::endl;
-
-        std::cout << "float: " << f << "f" << std::endl;
-        std::cout << "double: " << static_cast<double>(f) << std::endl;
-        return;
-    }
-
-    if (isDouble(value)) {
-        double d = std::strtod(value.c_str(), NULL);
-
-        if (std::isnan(d) || d < 0 || d > 127)
-            std::cout << "char: impossible" << std::endl;
-        else if (!std::isprint(static_cast<char>(d)))
-            std::cout << "char: Non displayable" << std::endl;
-        else
-            std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-
-        if (d < std::numeric_limits<int>::min() ||
-            d > std::numeric_limits<int>::max() ||
-            std::isnan(d) || std::isinf(d))
-            std::cout << "int: impossible" << std::endl;
-        else
-            std::cout << "int: " << static_cast<int>(d) << std::endl;
-
-        if (d < -std::numeric_limits<float>::max() ||
-            d > std::numeric_limits<float>::max())
-            std::cout << "float: impossible" << std::endl;
-        else
-            std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-
-        std::cout << "double: " << d << std::endl;
-        return;
-    }
-
-    if (isPseudo(value)) {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-
-        if (value == "nan" || value == "nanf") {
-            std::cout << "float: nanf" << std::endl;
-            std::cout << "double: nan" << std::endl;
-        } else if (value[0] == '-') {
-            std::cout << "float: -inff" << std::endl;
-            std::cout << "double: -inf" << std::endl;
+    bool hasDot = false;
+    bool hasDigit = false;
+    while (i < str.length()) {
+        if (str[i] == '.') {
+            if (hasDot)
+                return false;
+            hasDot = true;
+        }else if (isdigit(str[i])) {
+            hasDigit = true;
         } else {
-            std::cout << "float: +inff" << std::endl;
-            std::cout << "double: +inf" << std::endl;
+            return false;
         }
+        i++;
+    }
+    return hasDigit && hasDot;
+}
+
+void ScalarConverter::convert(const std::string& literal) {
+
+    if (literal.empty()) {
+        std::cout << "Error: empty string" << std::endl;
         return;
     }
 
-    std::cout << "char: impossible" << std::endl;
-    std::cout << "int: impossible" << std::endl;
-    std::cout << "float: impossible" << std::endl;
-    std::cout << "double: impossible" << std::endl;
+    
 }

@@ -1,6 +1,6 @@
-NAME = ex00
-SRCS = main.cpp ScalarConverter.cpp
-HEADERS = ScalarConverter.hpp
+NAME = ex01
+SRCS = main.cpp Serializer.cpp
+HEADERS = Serializer.hpp
 OBJS = $(SRCS:.cpp=.o)
 
 all : $(NAME)

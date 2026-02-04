@@ -139,7 +139,6 @@ void ScalarConverter::convert(const std::string& literal) {
 		int i = static_cast<int>(f);
 		double d = static_cast<double>(f);
 
-		//char
 		if (std::isnan(f) || std::isinf(f) || f < 0.0f || f > 127.0f)
 			std::cout << "char : impossible" << std::endl;
 		else if (f < 32.0f || f == 127.0f)
@@ -147,14 +146,12 @@ void ScalarConverter::convert(const std::string& literal) {
 		else
 			std::cout << "char: '" << c << "'" << std::endl;
 		
-		//int
 		if (std::isnan(f) || std::isinf(f) || f > static_cast<float>(std::numeric_limits<int>::max()) ||
 			f < static_cast<float>(std::numeric_limits<int>::min()))
 			std::cout << "int: impossible" << std::endl;
 		else
 			std::cout << "int: " << i << std::endl;
 		
-		// Float
 		if (std::isnan(f))
 			std::cout << "float: nanf" << std::endl;
 		else if (std::isinf(f))
@@ -164,7 +161,6 @@ void ScalarConverter::convert(const std::string& literal) {
 		else
 			std::cout << "float: " << f << "f" << std::endl;
 		
-		// Double
 		if (std::isnan(d))
 			std::cout << "double: nan" << std::endl;
 		else if (std::isinf(d))
@@ -180,7 +176,6 @@ void ScalarConverter::convert(const std::string& literal) {
 		int i = static_cast<int>(d);
 		float f = static_cast<float>(d);
 
-		//char
 		if (std::isnan(d) || std::isinf(d) || d < 0.0 || d > 127.0)
 			std::cout << "char: impossible" << std::endl;
 		else if (d < 32.0 || d == 127.0)
@@ -188,14 +183,12 @@ void ScalarConverter::convert(const std::string& literal) {
 		else
 			std::cout << "char: '" << c << "'" << std::endl;
 		
-		//int
 		if (std::isnan(d) || std::isinf(d) || d > static_cast<double>(std::numeric_limits<int>::max()) ||
 			d < static_cast<double>(std::numeric_limits<int>::min()))
 			std::cout << "int: impossible" << std::endl;
 		else
 			std::cout << "int: " << i << std::endl;
 
-		//float
 		if (std::isnan(f))
 			std::cout << "float: nanf" << std::endl;
 		else if (std::isinf(f))
@@ -205,7 +198,6 @@ void ScalarConverter::convert(const std::string& literal) {
 		else
 			std::cout << "float: " << f << "f" << std::endl;
 		
-		//double
 		if (std::isnan(d))
 			std::cout << "double: nan" << std::endl;
 		else if (std::isinf(d))

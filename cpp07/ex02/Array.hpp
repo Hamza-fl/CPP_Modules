@@ -2,8 +2,6 @@
 #define ARRAY_HPP
 
 #include <iostream>
-#include <string>
-#include <stdexcept>
 
 template<typename T>class Array {
 

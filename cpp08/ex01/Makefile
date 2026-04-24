@@ -1,6 +1,6 @@
-NAME = ex00
-SRCS = main.cpp
-HEADERS = easyfind.hpp
+NAME = ex01
+SRCS = main.cpp Span.cpp
+HEADERS = Span.hpp
 OBJS = $(SRCS:.cpp=.o)
 
 all : $(NAME)
